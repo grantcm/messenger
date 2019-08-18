@@ -52,7 +52,7 @@ app.get("/api/users", (req, res) => {
 app.post("/api/users", (req, res) => {
   var newUser = req.body;
   newUser.createDate = new Date();
-  if (!req.body.firstName || !req.body.lastName) {
+  if (!req.body.name) {
     handleError(res, "Invalid user input", "Must provide a name.", 400);
   } else {
     db.collection(USERS_COLLECTION).insertOne(newUser, function(err, doc) {

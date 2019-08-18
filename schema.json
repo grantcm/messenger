@@ -1,8 +1,7 @@
 {
 	"Users" : {
 		"id":"ObjectId",
-		"firstName": "String",
-		"lastName":"String",
+		"name":"String",
 		"email":"String",
 		"favoriteAnimal":"String",
 		"createDate":"Date",
