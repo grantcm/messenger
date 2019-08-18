@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { User } from './user';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry} from 'rxjs/operators';
@@ -17,7 +17,14 @@ export class UserService {
   }
 
   createUser(newUser: User) : Observable<User> {
-    return this.http.post<User>(this.userAPIUrl, newUser)
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        // 'Authorization': 'my-auth-token'
+      })
+    };
+
+    return this.http.post<User>(this.userAPIUrl, newUser, httpOptions)
       .pipe(catchError(this.handleError));
   }
 
