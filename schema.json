@@ -8,7 +8,7 @@
 		},
 	"Conversations": {
 		"id":"ObjectId",
-		"between":"Array"
+		"participants":"Array"
 		},
 	"Messages":{
 		"id":"ObjectId",

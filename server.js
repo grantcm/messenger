@@ -64,3 +64,81 @@ app.post("/api/users", (req, res) => {
     });
   }
 });
+
+/**
+ * Get a conversation by ID
+ */
+app.get("/api/conversations/:id", (req, res) => {
+  db.collection(CONVERSATIONS_COLLECTION).findOne({_id: new ObjectID(req.params.id)}).toArray((err, docs) => {
+    if(err) {
+      handleError(res, err.message, "Failed to get conversations");
+    } else {
+      res.status(200).json(docs);
+    }
+  })
+});
+
+/**
+ * Get a conversation containing a user ID
+ */
+app.get("/api/conversations/includes/:id", (req, res) => {
+  db.collection(CONVERSATIONS_COLLECTION).find({participants: new ObjectID(req.params.id)}).toArray((err, docs) => {
+    if(err) {
+      handleError(res, err.message, "Failed to get conversations with " + req.params.id);
+    } else {
+      res.status(200).json(docs);
+    }
+  })
+});
+
+/**
+ * Add a new conversation
+ */
+app.post("/api/conversations", (req, res) => {
+  var newConversation = req.body;
+  newConversation.createDate = new Date();
+  if (!req.body.between) {
+    handleError(res, "Invalid user input", "Must provide participants in the conversation.", 400);
+  } else {
+    db.collection(CONVERSATIONS_COLLECTION).insertOne(newConversation, function(err, doc) {
+      if (err) {
+        handleError(res, err.message, "Failed to create new conversation.");
+      } else {
+        res.status(201).json(doc.ops[0]);
+      }
+    });
+  }
+});
+
+/**
+ * Get messages by conversation ID
+ */
+app.get("/api/messages/conversation/:id", (req, res) => {
+  db.collection(MESSAGES_COLLECTION).find({conversationId: new ObjectID(req.params.id)}).toArray((err, docs) => {
+    if(err) {
+      handleError(res, err.message, "Failed to get messages with " + req.params.id);
+    } else {
+      res.status(200).json(docs);
+    }
+  })
+});
+
+
+ /**
+  * Add a new message
+  */
+ app.post("/api/messages", (req, res) => {
+  var newMessage = req.body;
+  newMessage.createDate = new Date();
+  if (!req.body.conversationId) {
+    handleError(res, "Invalid message", "Must provide conversationId.", 400);
+  } else {
+    db.collection(MESSAGES_COLLECTION).insertOne(newMessage, function(err, doc) {
+      if (err) {
+        handleError(res, err.message, "Failed to create new message.");
+      } else {
+        res.status(201).json(doc.ops[0]);
+      }
+    });
+  }
+});
