@@ -1,0 +1,21 @@
+{
+	"Users" : {
+		"id":"ObjectId",
+		"firstName": "String",
+		"lastName":"String",
+		"email":"String",
+		"favoriteAnimal":"String",
+		"createDate":"Date",
+		},
+	"Conversations": {
+		"id":"ObjectId",
+		"between":"Array"
+		},
+	"Messages":{
+		"id":"ObjectId",
+		"conversationId":"ObjectId",
+		"sentBy":"ObjectId",
+		"contents":"Data",
+		"date":"timestamp"
+		}
+	}
