@@ -4,15 +4,18 @@
   "scripts": {
     "ng": "ng",
     "start": "node server.js",
-		"serve": "ng serve",
+    "serve": "ng serve",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "postinstall": "ng build --output-path dist"
   },
   "private": true,
   "dependencies": {
     "@angular/animations": "~8.2.0",
+    "@angular/cli": "~8.2.2",
+    "@angular/compiler-cli": "~8.2.0",
     "@angular/common": "~8.2.0",
     "@angular/compiler": "~8.2.0",
     "@angular/core": "~8.2.0",
@@ -29,8 +32,6 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.802.2",
-    "@angular/cli": "~8.2.2",
-    "@angular/compiler-cli": "~8.2.0",
     "@angular/language-service": "~8.2.0",
     "@types/node": "~8.9.4",
     "@types/jasmine": "~3.3.8",

@@ -1,0 +1,11 @@
+<div class="row">
+    <div class="col-md-4">
+        <h2>Online Users</h2>
+        <ul class="list-group">
+            <li class="list-group-item" *ngFor="let user of users">
+                {{user.name}}
+            </li>
+        </ul>
+        <button class="btn" (click)="addNewUser">Add new user</button>
+    </div>
+</div>
