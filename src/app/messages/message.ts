@@ -6,5 +6,11 @@ export class Message {
     _id: MessageId;
     conversationId: ConversationId;
     sentBy: UserId;
+    sentByName: string;
     contents: string;
+
+    constructor(sentBy: string, contents: string){
+        this.sentByName = sentBy;
+        this.contents = contents;
+    }
 }

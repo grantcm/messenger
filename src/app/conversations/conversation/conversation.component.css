@@ -1,0 +1,22 @@
+.conversation-header-container {
+    width: 100%;
+    flex: .1;
+}
+
+.message-view-container {
+    width: 100%;
+    flex: .8;
+    overflow-y: hidden;
+}
+
+.conversation-input-container {
+    width: 100%;
+    flex: .1;
+}
+
+.conversation-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 4px;
+}

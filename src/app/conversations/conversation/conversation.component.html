@@ -1,0 +1,13 @@
+<div class="fluid-container h-100 conversation-container">
+    <h3 class="conversation-header-container">Conversation with {{getConversationTitle()}}</h3>
+    <div class="row message-view-container">
+        <div class="col-md-12">
+            <app-message-view *ngFor="let message of messages" [message]="message"></app-message-view>
+        </div>
+    </div>
+    <div class="row conversation-input-container">
+        <div class="col-md-12">
+            <app-conversation-input></app-conversation-input>
+        </div>
+    </div>
+</div>

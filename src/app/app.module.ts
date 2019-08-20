@@ -8,6 +8,9 @@ import { UserDetailsComponent } from './users/user-details/user-details.componen
 import { ConversationListComponent } from './conversations/conversation-list/conversation-list.component';
 import { MessageListComponent } from './messages/message-list/message-list.component';
 import { UserListComponent } from './users/user-list/user-list.component';
+import { ConversationComponent } from './conversations/conversation/conversation.component';
+import { ConversationInputComponent } from './conversations/conversation-input/conversation-input.component';
+import { MessageViewComponent } from './messages/message-view/message-view.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +18,10 @@ import { UserListComponent } from './users/user-list/user-list.component';
     UserDetailsComponent,
     ConversationListComponent,
     MessageListComponent,
-    UserListComponent
+    UserListComponent,
+    ConversationComponent,
+    ConversationInputComponent,
+    MessageViewComponent
   ],
   imports: [
     BrowserModule,

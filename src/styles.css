@@ -1,1 +1,26 @@
 /* You can add global styles to this file, and also import other style files */
+html, body {
+    height: 100%;
+    margin: 0px;
+}
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+    /* Calc height 100% - footer height - nav height*/
+    height: calc(100% - 40px - 56px);
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+
+.navbar {
+    flex: 0 1  auto;
+}
+
+.footer {
+    width: 100%;
+    height: 40px;
+    padding: 8px;
+    position: fixed;
+}

@@ -5,4 +5,9 @@ export class User {
     name: string;
     email: string;
     favoriteAnimal: string;
+
+    constructor(name: string, favoriteAnimal: string) {
+        this.name = name;
+        this.favoriteAnimal = favoriteAnimal;
+    }
 }
