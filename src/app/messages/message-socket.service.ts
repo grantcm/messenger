@@ -10,7 +10,7 @@ export class MessageSocketService {
   private messageSocket: WebSocketSubject<Message>;
 
   constructor(@Inject(WINDOW) private window: Window) { 
-    this.messageSocket = new WebSocketSubject(`ws://${this.window.location.hostname}:8080`);
+    this.messageSocket = new WebSocketSubject(`ws://${this.window.location.hostname}`);
   }
 
   getMessageSocket() : WebSocketSubject<Message> {
