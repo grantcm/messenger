@@ -1,11 +1,9 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 var passport = require('passport');
-var mongodb = require("mongodb");
 var passport = require('passport');
 var WebSocket = require('ws');
 var http = require('http');
-var ObjectID = mongodb.ObjectID;
 
 require('./app_api/models/db');
 require('./app_api/config/passport');
