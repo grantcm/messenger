@@ -9,8 +9,10 @@ export class Message {
     sentByName: string;
     contents: string;
 
-    constructor(sentBy: string, contents: string){
-        this.sentByName = sentBy;
+    constructor(sentBy: UserId, sentByName: string, conversationId: ConversationId, contents: string) {
+        this.sentBy = sentBy;
+        this.sentByName = sentByName;
+        this.conversationId = conversationId
         this.contents = contents;
     }
 }

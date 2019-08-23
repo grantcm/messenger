@@ -1,13 +1,21 @@
-<div class="fluid-container h-100 conversation-container">
-    <h3 class="conversation-header-container">Conversation with {{getConversationTitle()}}</h3>
-    <div class="row message-view-container">
-        <div class="col-md-12">
-            <app-message-view *ngFor="let message of messages" [message]="message"></app-message-view>
-        </div>
+<div class="fluid-container conversation-container">
+    <div class="conversation-container" *ngIf="conversation">
+            <div class="conversation-header-container">
+                    <h3 class="conversation-header">Conversation between {{getConversationTitle()}}</h3>
+                </div>
+                <div class="row message-view-container">
+                    <div #messageView [scrollTop]="messageView.scrollHeight" class="col-md-12 message-view">
+                        <app-message-view *ngFor="let message of messages" [message]="message"></app-message-view>
+                    </div>
+                </div>
+                <div class="row conversation-input-container">
+                    <div class="col-md-12">
+                        <app-conversation-input [conversationId]="conversation._id"></app-conversation-input>
+                    </div>
+                </div>
     </div>
-    <div class="row conversation-input-container">
-        <div class="col-md-12">
-            <app-conversation-input></app-conversation-input>
-        </div>
+    <div class="jumbotron" *ngIf="!conversation">
+        <h1 class="display-4">Welcome {{userDetails.name}}</h1>
+        <p class="lead">Click a User on the left to start a conversation</p>
     </div>
 </div>

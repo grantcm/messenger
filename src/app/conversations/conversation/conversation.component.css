@@ -1,21 +1,38 @@
 .conversation-header-container {
     width: 100%;
-    flex: .1;
+    height: 10%;
+    display: flex;
+    flex-direction: row;
+}
+
+.conversation-header {
+    text-align: center;
+    margin: auto;
 }
 
 .message-view-container {
     width: 100%;
-    flex: .8;
-    overflow-y: hidden;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.message-view {
+    width: 100%;
+    flex: 0 1 100%;
+    overflow-y: auto;
 }
 
 .conversation-input-container {
     width: 100%;
-    flex: .1;
+    height: 10%;
+
 }
 
 .conversation-container {
     width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     padding: 4px;

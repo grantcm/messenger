@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { User } from './user';
 import { Observable, throwError } from 'rxjs';
-import { catchError, retry} from 'rxjs/operators';
+import { catchError, retry } from 'rxjs/operators';
+import { UserId } from './user-id';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private userAPIUrl = "/api/users"
+  private userAPIUrl = "/api/users";
   constructor(private http: HttpClient) { }
 
   getUsers() {
@@ -16,10 +17,16 @@ export class UserService {
       .pipe(catchError(this.handleError));
   }
 
-  createUser(newUser: User) : Observable<User> {
+  getUser(id: UserId) {
+    const getParams = new HttpParams().set('id', id.toString());
+    return this.http.get<User>(`${this.userAPIUrl}/id`, { params: getParams })
+      .pipe(catchError(this.handleError));
+  }
+
+  createUser(newUser: User): Observable<User> {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type':  'application/json',
+        'Content-Type': 'application/json',
         // 'Authorization': 'my-auth-token'
       })
     };

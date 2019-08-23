@@ -1,7 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { User } from '../../users/user';
 import { ConversationService } from '../conversation.service';
 import { Message } from 'src/app/messages/message';
+import { ConversationId } from '../conversation-id';
+import { MessageService } from 'src/app/messages/message.service';
+import { Conversation } from '../conversation';
+import { UserDetails } from 'src/app/login/authentication.service';
 
 @Component({
   selector: 'app-conversation',
@@ -9,20 +13,40 @@ import { Message } from 'src/app/messages/message';
   styleUrls: ['./conversation.component.css']
 })
 export class ConversationComponent implements OnInit {
-
-  participants: User[];
+  private _conversation: Conversation;
+  @Input() userDetails: UserDetails;
+  @Input() participants: User[];
   messages: Message[];
 
-  constructor(private conversationService: ConversationService) { }
+  constructor(private messageService: MessageService) {
+    this.messages = [];
+    this.participants = [];
+  }
 
   ngOnInit() {
-    //TODO create conversation service and initialize participants and messages
-    this.messages = [new Message("Grant", "Hey, Veneta"), new Message("Veneta", "Zdravei, Kote!")];
-    this.participants = [new User("Veneta", "Wolf/Dog"), new User("Grant", "Kotentse")];
+    this.initializeConversationMessages();
+    this.messageService.messageEmitter.subscribe(next => this.messages.push(next), complete => this.messageService.messageEmitter.unsubscribe());
   }
 
-  public getConversationTitle = () : string => {
-    return this.participants.map(participant => participant.name).join(", ");
+  get conversation() {
+    return this._conversation;
   }
 
+  @Input()
+  set conversation(conversation: Conversation) {
+    this._conversation = conversation;
+    this.messages = [];
+    this.initializeConversationMessages();
+  }
+
+  private initializeConversationMessages() {
+    if (this._conversation) {
+      this.messageService.getMessagesFromConversation(this._conversation._id)
+        .subscribe((data: Message[]) => { this.messages = data });
+    }
+  }
+
+  public getConversationTitle = (): string => {
+    return this.participants.map(participant => participant.name.split(" ")[0]).join(", ");
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { UserService } from '../user.service';
 import { User } from '../user';
 
@@ -11,12 +11,17 @@ import { User } from '../user';
 export class UserListComponent implements OnInit {
 
   users: User[];
+  @Output() userSelected = new EventEmitter<User>();
 
   constructor(private userService: UserService) { }
 
   ngOnInit() {
     this.userService.getUsers()
-      .subscribe((data: User[]) => {this.users = data});
+      .subscribe((data: User[]) => { this.users = data });
+  }
+
+  createConversation(user: User) {
+    this.userSelected.emit(user);
   }
 
 }

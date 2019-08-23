@@ -1,0 +1,10 @@
+<div class="app-container fluid-container">
+    <div class="row h-100 mr-0 p-0">
+        <div class="col-4 px-0 inherit-height">
+            <app-user-list (userSelected)="userListUserSelected($event)"></app-user-list>
+        </div>
+        <div class="col-8 px-0 inherit-height">
+            <app-conversation [userDetails]="userDetails" [participants]="selectedConversationParticipants" [conversation]="selectedConversation"></app-conversation>
+        </div>
+    </div>
+</div>
