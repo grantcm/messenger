@@ -5,13 +5,13 @@ import { UserId } from '../users/user-id';
 export class Message {
     _id: MessageId;
     conversationId: ConversationId;
+    receipients: UserId[];
     sentBy: UserId;
-    sentByName: string;
     contents: string;
 
-    constructor(sentBy: UserId, sentByName: string, conversationId: ConversationId, contents: string) {
+    constructor(sentBy: UserId, receipients: UserId[], conversationId: ConversationId, contents: string) {
         this.sentBy = sentBy;
-        this.sentByName = sentByName;
+        this.receipients = receipients;
         this.conversationId = conversationId
         this.contents = contents;
     }

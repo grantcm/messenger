@@ -35,7 +35,6 @@ module.exports.addNewMessage = function (req, res) {
     var newMessage = new Message();
     newMessage.conversationId = req.body.conversationId;
     newMessage.sentBy = req.body.sentBy;
-    newMessage.sentByName = req.body.sentByName;
     newMessage.contents = req.body.contents;
     Message.create(newMessage, (err) => {
         if (err) {

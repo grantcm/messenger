@@ -16,6 +16,7 @@ module.exports.login = function (req, res) {
         // If a user is found
         if (user) {
             token = user.generateJwt();
+            req.session.user = user._id;
             res.status(200);
             res.json({
                 "token": token
@@ -41,6 +42,7 @@ module.exports.register = function (req, res) {
         } else {
             let token;
             token = user.generateJwt();
+            req.session.user = user._id;
             res.status(200).json({
                 "token": token
             });

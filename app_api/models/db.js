@@ -49,3 +49,5 @@ process.on('SIGTERM', function() {
 require('./user');
 require('./message');
 require('./conversation');
+
+exports.default = mongoose;

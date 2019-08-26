@@ -20,7 +20,7 @@ module.exports.getConversationWithUserId = function(req, res) {
     if(!req.query.id) {
         res.status(401);
     } else {
-        Conversation.find({participants: new ObjectId(req.query.id)})
+        Conversation.find({participants: { $all : ids }})
         .exec((err, conversation) => {
             if(err) {
                 res.status(500);

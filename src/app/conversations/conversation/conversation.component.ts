@@ -25,7 +25,15 @@ export class ConversationComponent implements OnInit {
 
   ngOnInit() {
     this.initializeConversationMessages();
-    this.messageService.messageEmitter.subscribe(next => this.messages.push(next), complete => this.messageService.messageEmitter.unsubscribe());
+    this.messageService.messageEmitter.subscribe(next => this.handleIncomingMessage(next), complete => this.messageService.messageEmitter.unsubscribe());
+  }
+
+  private handleIncomingMessage(message: Message) {
+    if(message.conversationId === this._conversation._id) {
+      this.messages.push(message);
+    } else {
+      //Display notification to over user icon
+    }
   }
 
   get conversation() {
