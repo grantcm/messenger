@@ -1,28 +1,40 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { ConversationService } from '../../conversations/conversation.service';
-import { MessageService } from '../../messages/message.service';
 import { Conversation } from 'src/app/conversations/conversation';
 import { User } from 'src/app/users/user';
 import { UserDetails, AuthenticationService } from 'src/app/login/authentication.service';
 import { UserId } from 'src/app/users/user-id';
+import { Router, NavigationEnd, NavigationStart } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-messenger',
   templateUrl: './messenger.component.html',
   styleUrls: ['./messenger.component.css']
 })
-export class MessengerComponent implements OnInit {
-
+export class MessengerComponent implements OnInit, OnDestroy {
+  navigationSubscription: Subscription;
   userDetails: UserDetails;
   selectedConversation: Conversation;
   selectedConversationParticipants: User[];
 
-  constructor(private conversationService: ConversationService, private authenticationService: AuthenticationService) {
+
+  constructor(private conversationService: ConversationService, private authenticationService: AuthenticationService, private router: Router) {
     this.selectedConversationParticipants = [];
+    this.navigationSubscription = this.router.events.subscribe((e: any) => {
+      if (e instanceof NavigationStart) {
+        //do nothing
+        console.log(e);
+      }
+    })
    }
 
   ngOnInit() {
     this.userDetails = this.authenticationService.getUserDetails();
+  }
+
+  ngOnDestroy() {
+    this.navigationSubscription.unsubscribe();
   }
 
   /**
@@ -38,6 +50,7 @@ export class MessengerComponent implements OnInit {
         if (data && data.length == 1) {
           this.selectedConversation = data[0];
         }
+        //TODO get this data from the backend
         this.selectedConversationParticipants = 
         [new User(new UserId(user._id), user.name, user.email, user.favoriteAnimal),
         new User(new UserId(this.userDetails._id), this.userDetails.name, this.userDetails.email, this.userDetails.favoriteAnimal)];

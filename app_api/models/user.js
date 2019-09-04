@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var crypto = require('crypto');
 var jwt = require('jsonwebtoken');
+const secret = process.env.SECRET_KEY;
 const saltSize = 16;
 const jwtExpiry = 1;
 
@@ -41,7 +42,7 @@ userSchema.methods.generateJwt = function() {
         name: this.name,
         favoriteAnimal: this.favoriteAnimal,
         expiry: parseInt(expiry.getTime() / 1000)
-    }, "MY_SECRET");
+    }, secret);
 }
 
 mongoose.model('User', userSchema);

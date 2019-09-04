@@ -13,13 +13,24 @@ import { MessageSocketService } from './message-socket.service';
 })
 export class MessageService {
   private messageAPIUrl = "/api/messages"
-  private messageSocket: WebSocketSubject<Message>; 
+  private messageSocket: WebSocketSubject<Message>;
   @Output() messageEmitter = new EventEmitter<Message>();
   constructor(private http: HttpClient, private messageSocketService: MessageSocketService) {
     this.messageSocket = this.messageSocketService.getMessageSocket();
-    this.messageSocket.subscribe(
+    this.subscribeToWebSocket(this.messageSocket);
+  }
+
+  private handleSocketError(err) {
+    console.log(err);
+    setTimeout(() => {
+      this.subscribeToWebSocket(this.messageSocket);
+    }, 3000);
+  }
+
+  private subscribeToWebSocket(webSocket: WebSocketSubject<any>) {
+    webSocket.subscribe(
       (message) => this.pushNewMessageToServiceSubscribers(message),
-      (err) => console.error(err),
+      (err) => this.handleSocketError(err),
       () => console.warn("Done.")
     );
   }
